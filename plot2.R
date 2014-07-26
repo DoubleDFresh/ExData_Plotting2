@@ -27,7 +27,7 @@ par(mar = c(5, 4, 6, 3))
 
 par(yaxt="n")
 
-barplot(dt.sub$x,names = dt.sub$Year, axes = FALSE, xlab = "Year PM2.5 Emissions Recorded", ylab = "Tons of PM2.5 Emissions (in millions)", col = pal, tck =2)
+barplot(dt.sub$x,names = dt.sub$Year, axes = FALSE, xlab = "Year PM2.5 Emissions Recorded", ylab = "Tons of PM2.5 Emissions (in thousands)", col = pal, tck =2)
 lablist.y<-as.vector(c(0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5))
 axis(2, at=seq(0, 3500, by=500), tck = -.02, labels = FALSE)
 axis(side = 2, lwd = 0, line = -.4, las = 1)

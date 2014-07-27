@@ -29,7 +29,7 @@ df <- aggregate(dt$Emissions, by=list(Year=dt$year, Type =dt$type), FUN=sum)
 
 png(file = "plot4.png", width = 480, height = 480)
 ggplot(data=df, aes(x=Year, y=x, fill=Type)) + geom_bar(stat="identity", position=position_dodge()) +
-        scale_fill_hue(name="Emission Type") +
+        scale_fill_brewer(name="Emission Type", palette = "Set1") +
         xlab("Year PM2.5 Emissions Recorded") + ylab("Tons of PM2.5 Emissions") +  
         ggtitle("Coal PM2.5 Emissions in the US by Year and Type") + scale_y_continuous(breaks = c(seq(0,600000,100000)),labels = comma)
 

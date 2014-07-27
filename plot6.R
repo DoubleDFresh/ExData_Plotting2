@@ -22,11 +22,12 @@ names(dt)
 dt.sub <- subset(dt, fips %in% c("24510","06037") & type == "ON-ROAD", select = c(year, Emissions, fips))
 dt.sub$fips <- as.factor(dt.sub$fips)
 dt.sub <- aggregate(dt.sub$Emissions, by=list(Year=dt.sub$year, City=dt.sub$fips), FUN=sum)
+dt.sub$City <- mapvalues(dt.sub$City, from = c("06037", "24510"), to = c("Los Angeles", "Baltimore"))
 
 #  Plot
 png(file = "plot6.png", width = 480, height = 480)
 ggplot(data=dt.sub, aes(x=Year, y=x, fill=City)) + geom_bar(stat="identity", position=position_dodge()) +
-        scale_fill_hue(name="City") +
+        scale_fill_brewer(name="City", palette="Set2") +
         xlab("Year PM2.5 Emissions Recorded") + ylab("Tons of PM2.5 Motor Vehicle Emissions") +  
         ggtitle("Comparison of Los Angeles & Baltimore Vehicle Emissions") + scale_y_continuous(breaks = c(seq(0,5000,500)), labels = comma, limits = c(0,5000))
 

@@ -1,9 +1,6 @@
-#  plot3.R seeks to create a plot (plot3.png) in your default directory
-#  which answers the question - 'Of the four types of sources indicated by the
-#  type (point, nonpoint, onroad, nonroad) variable, 
-#  which of these four sources have seen decreases in emissions from 1999–2008 for Baltimore City? 
-#  Which have seen increases in emissions from 1999–2008? 
-#  Use the ggplot2 plotting system to make a plot answer this question.
+#  plot4.R seeks to create a plot (plot4.png) in your default directory
+#  which answers the question - 
+#  Across the United States, how have emissions from coal combustion-related sources changed from 1999–2008?
 
 ## Install necessary libraries
 library(data.table)
@@ -13,11 +10,16 @@ library(plyr)
 
 #  First, read in data from working directory using readRDS().  Assumes file is in unzipped in present working dir.
 dt <- data.table(readRDS("summarySCC_PM25.rds"))
+dt2 <- data.table(readRDS("Source_Classification_Code.rds"), stringsAsFactors=FALSE)
 names(dt)
+names(dt2)
+dt2 <- dt2[, SCC:=as.character(SCC)]
+#  Now, subset the data using grep looking for coal emissions to merge w/ dt
+dt2.sub <- dt2[grep("Coal$", dt2$EI.Sector), ]
+names(dt2.sub)
 
-#  Now, subset the data inta a table for a bar graphs
-dt.sub <- subset(dt, fips == "24510", select = c(year, Emissions, type))
-names(dt.sub)
+
+## 2.  Subset using SCC
 
 #  Set year and type as factors for ggplot2
 dt.sub$year <- as.factor(dt.sub$year)
